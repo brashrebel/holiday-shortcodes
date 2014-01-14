@@ -15,12 +15,10 @@ add_filter('usl_extend_cats', 'usl_add_holiday_cat');
 
 function usl_add_holiday_codes($usl_codes) {
 global $usl_days_until_christmas;
-global $test2;
 $usl_codes[]=$usl_days_until_christmas;
-$usl_codes[]=$test2;
 return $usl_codes;
 }
-add_filter('usl_extend_codes', 'usl_add_holiday_codes');
+//add_filter('usl_extend_codes', 'usl_add_holiday_codes');
 
 /*-------------------------------
 Days until Christmas
@@ -35,16 +33,28 @@ function usl_days_until_christmas() {
 	return $days;
 }
 add_shortcode( 'usl_days_until_christmas', 'usl_days_until_christmas' );
-$usl_days_until_christmas = array(
+
+function usl_add_duc($usl_codes) {
+$usl_codes[] = array(
 		'Title'=>'Days until Christmas',
 		'Code'=>'usl_days_until_christmas',
 		'Description'=>'Displays the number of days remaining until Christmas day.',
 		'Category'=>'Holiday'
 		);
-$test2 = array(
-		'Title'=>'Test',
-		'Code'=>'[yippee]',
-		'Description'=>'This might work',
+return $usl_codes;
+}
+add_filter('usl_extend_codes', 'usl_add_duc');
+/*-------------------------------
+Next shortcode
+-------------------------------*/
+function usl_add_test($usl_codes) {
+$usl_codes[] = array(
+		'Title'=>'Another one',
+		'Code'=>'usl_another',
+		'Description'=>'Does nothing.',
 		'Category'=>'Holiday'
 		);
+return $usl_codes;
+}
+add_filter('usl_extend_codes', 'usl_add_test');
 ?>
