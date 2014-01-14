@@ -75,4 +75,33 @@ $usl_codes[] = array(
 return $usl_codes;
 }
 add_filter('usl_extend_codes', 'usl_add_cl');
+/*-------------------------------
+Days until...
+-------------------------------*/
+function usl_days_until($atts, $content = null) {
+  extract(shortcode_atts(array(
+     'month' => '',
+     'day'   => '',
+     'year'  => ''
+    ), $atts));
+    $remain = ceil((mktime( 0,0,0,(int)$month,(int)$day,(int)$year) - time())/86400);
+    if( $remain >= 1 ){
+        return $daysremain = "$remain";
+    }else{
+        return $content;
+    }
+}
+add_shortcode('usl_days_until', 'usl_days_until');
+function usl_add_du($usl_codes) {
+$usl_codes[] = array(
+		'Title'=>'Days until specific date',
+		'Code'=>'usl_days_until',
+		'Description'=>'Birthday coming? Wedding? Anniversary? This shortcode accepts a date and outputs the days remaining until that day comes.',
+		'Atts'=>'month, day, year',
+		'Example'=>'[usl_days_until day="4" month="7" year="2015"]',
+		'Category'=>'Holiday'
+		);
+return $usl_codes;
+}
+add_filter('usl_extend_codes', 'usl_add_du');
 ?>
