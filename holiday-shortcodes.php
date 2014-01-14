@@ -6,19 +6,12 @@ Version: 1.0
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
-
+//Add our new category
 function usl_add_holiday_cat($usl_cats) {
 $usl_cats[]='Holiday';
 return $usl_cats;
 }
 add_filter('usl_extend_cats', 'usl_add_holiday_cat');
-
-function usl_add_holiday_codes($usl_codes) {
-global $usl_days_until_christmas;
-$usl_codes[]=$usl_days_until_christmas;
-return $usl_codes;
-}
-//add_filter('usl_extend_codes', 'usl_add_holiday_codes');
 
 /*-------------------------------
 Days until Christmas
@@ -45,16 +38,41 @@ return $usl_codes;
 }
 add_filter('usl_extend_codes', 'usl_add_duc');
 /*-------------------------------
-Next shortcode
+Days until Halloween
 -------------------------------*/
-function usl_add_test($usl_codes) {
+function usl_days_until_halloween() {
+	//How long until Halloween?
+	$year = date("Y");
+	$target = mktime(0, 0, 0, 10, 31, $year);
+	$today = time();
+	$difference =($target-$today);
+	$days =(int) ($difference/86400);
+	return $days;
+}
+add_shortcode( 'usl_days_until_halloween', 'usl_days_until_halloween' );
+
+function usl_add_duh($usl_codes) {
 $usl_codes[] = array(
-		'Title'=>'Another one',
-		'Code'=>'usl_another',
-		'Description'=>'Does nothing.',
+		'Title'=>'Days until Halloween',
+		'Code'=>'usl_days_until_halloween',
+		'Description'=>'Displays the number of days remaining until Halloween.',
 		'Category'=>'Holiday'
 		);
 return $usl_codes;
 }
-add_filter('usl_extend_codes', 'usl_add_test');
+add_filter('usl_extend_codes', 'usl_add_duh');
+/*-------------------------------
+Random Christmas lyrics
+-------------------------------*/
+include_once('christmas-lyrics.php');
+function usl_add_cl($usl_codes) {
+$usl_codes[] = array(
+		'Title'=>'Random Christmas Lyrics',
+		'Code'=>'usl_christmas_lyric',
+		'Description'=>'Displays random lyrics from popular Christmas songs.',
+		'Category'=>'Holiday'
+		);
+return $usl_codes;
+}
+add_filter('usl_extend_codes', 'usl_add_cl');
 ?>
