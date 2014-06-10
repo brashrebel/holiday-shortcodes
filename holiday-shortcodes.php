@@ -2,7 +2,7 @@
 /*
 Plugin Name: Holiday Shortcodes
 Description: A collection of shortcodes that integrates with Ultimate Shortcode Library
-Version: 1.0
+Version: 0.2
 Author: Kyle Maurer
 Author URI: http://realbigmarketing.com/staff/kyle
 */
@@ -40,8 +40,6 @@ function usl_days_until_halloween() {
 	$days =(int) ($difference/86400);
 	return $days;
 }
-add_shortcode( 'usl_days_until_halloween', 'usl_days_until_halloween' );
-
 function usl_add_duh() {
 add_usl_shortcode( 'usl_days_until_halloween',
 	'usl_days_until_halloween',
@@ -79,7 +77,6 @@ function usl_days_until($atts, $content = null) {
         return $content;
     }
 }
-add_shortcode('usl_days_until', 'usl_days_until');
 function usl_add_du() {
 add_usl_shortcode('usl_days_until',
 	'usl_days_until',
