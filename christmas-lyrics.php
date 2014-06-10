@@ -59,7 +59,3 @@ function usl_christmas_lyric() {
 	$chosen = usl_christmas_get_lyric();
 	echo "<p id='christmas'>$chosen</p>";
 }
-
-add_shortcode( 'usl_christmas_lyric', 'usl_christmas_lyric' );
-
-?>

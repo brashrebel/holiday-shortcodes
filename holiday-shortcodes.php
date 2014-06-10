@@ -54,16 +54,15 @@ add_action('plugins_loaded', 'usl_add_duh');
 Random Christmas lyrics
 -------------------------------*/
 include_once('christmas-lyrics.php');
-function usl_add_cl($usl_codes) {
-$usl_codes[] = array(
-		'Title'=>'Random Christmas Lyrics',
-		'Code'=>'usl_christmas_lyric',
-		'Description'=>'Displays random lyrics from popular Christmas songs.',
-		'Category'=>'Holiday'
-		);
-return $usl_codes;
+function usl_add_cl() {
+add_usl_shortcode('usl_christmas_lyric',
+	'usl_christmas_lyric',
+	'Random Christmas Lyrics',
+	'Displays random lyrics from popular Christmas songs.',
+	'Holiday'
+	);
 }
-add_filter('usl_extend_codes', 'usl_add_cl');
+add_action('plugins_loaded', 'usl_add_cl');
 /*-------------------------------
 Days until...
 -------------------------------*/
@@ -76,20 +75,19 @@ function usl_days_until($atts, $content = null) {
     $remain = ceil((mktime( 0,0,0,(int)$month,(int)$day,(int)$year) - time())/86400);
     if( $remain >= 1 ){
         return $daysremain = "$remain";
-    }else{
+    } else {
         return $content;
     }
 }
 add_shortcode('usl_days_until', 'usl_days_until');
-function usl_add_du($usl_codes) {
-$usl_codes[] = array(
-		'Title'=>'Days until specific date',
-		'Code'=>'usl_days_until',
-		'Description'=>'Birthday coming? Wedding? Anniversary? This shortcode accepts a date and outputs the days remaining until that day comes.',
-		'Atts'=>'month, day, year',
-		'Example'=>'[usl_days_until day="4" month="7" year="2015"]',
-		'Category'=>'Holiday'
-		);
-return $usl_codes;
+function usl_add_du() {
+add_usl_shortcode('usl_days_until',
+	'usl_days_until',
+	'Days until specific date',
+	'Birthday coming? Wedding? Anniversary? This shortcode accepts a date and outputs the days remaining until that day comes.',
+	'Holiday',
+	'month, day, year',
+	'[usl_days_until day="4" month="7" year="2015"]'
+	);
 }
-add_filter('usl_extend_codes', 'usl_add_du');
+add_action('plugins_loaded', 'usl_add_du');
